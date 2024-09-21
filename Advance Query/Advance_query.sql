@@ -1,4 +1,5 @@
 -- github username -> wasif-h
+
 /* Question Set 3 - Advance */
 /* Q1: Find how much amount spent by each customer on artists? Write a query to return customer name, artist name and total spent */
 
@@ -32,14 +33,20 @@ From customers
     ORDER BY 4 DESC
 
 
+/* Q2: We want to find out the most popular music Genre for each country. We determine the most popular genre as the genre 
+ with the highest amount of purchases. Write a query that returns each country along with the top Genre. For countries where 
+ the maximum number of purchases is shared return all Genres. */
 
-
-    /* Q2: We want to find out the most popular music Genre for each country. We determine the most popular genre as the genre 
-     with the highest amount of purchases. Write a query that returns each country along with the top Genre. For countries where 
-     the maximum number of purchases is shared return all Genres. */
-
-     
-    /* Q3: Write a query that determines the customer that has spent the most on music for each country. 
-     Write a query that returns the country along with the top customer and how much they spent. 
-     For countries where the top amount spent is shared, provide all customers who spent this amount. */
+SELECT invoices.BillingCountry,
+    count(invoice_items.Quantity) as Total,
+    genres.Name
+FROM invoices
+    JOIN invoice_items ON invoice_items.InvoiceId = invoices.InvoiceId
+    JOIN tracks ON tracks.TrackId = invoice_items.TrackId
+    JOIN genres ON genres.GenreId = tracks.GenreId
+GROUP BY 1,
+    3
+ORDER BY 1 ASC,
+    2 DESC
+    
     /* Thank You :) */
